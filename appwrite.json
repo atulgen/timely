@@ -1,0 +1,296 @@
+{
+  "projectId": "681c8d11000e2873452b",
+  "projectName": "timely",
+  "settings": {
+    "services": {
+      "account": true,
+      "avatars": true,
+      "databases": true,
+      "locale": true,
+      "health": true,
+      "storage": true,
+      "teams": true,
+      "users": true,
+      "functions": true,
+      "graphql": true,
+      "messaging": true
+    },
+    "auth": {
+      "methods": {
+        "jwt": true,
+        "phone": true,
+        "invites": true,
+        "anonymous": true,
+        "email-otp": true,
+        "magic-url": true,
+        "email-password": true
+      },
+      "security": {
+        "duration": 31536000,
+        "limit": 0,
+        "sessionsLimit": 10,
+        "passwordHistory": 0,
+        "passwordDictionary": false,
+        "personalDataCheck": false,
+        "sessionAlerts": false,
+        "mockNumbers": []
+      }
+    }
+  },
+  "databases": [
+    {
+      "$id": "timelydb-atul",
+      "name": "timelydb",
+      "enabled": true
+    }
+  ],
+  "collections": [
+    {
+      "$id": "timelydb-collection",
+      "$permissions": [
+        "create(\"any\")",
+        "read(\"any\")",
+        "update(\"any\")",
+        "delete(\"any\")",
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "681c8dec000eb83b47eb",
+      "name": "timely-collection",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [],
+      "indexes": []
+    },
+    {
+      "$id": "timelycol-atul",
+      "databaseId": "timelydb-atul",
+      "name": "timely-collection",
+      "documentSecurity": false,
+      "attributes": [],
+      "indexes": [],
+      "enabled": true
+    },
+    {
+      "$id": "workspaces",
+      "databaseId": "timelydb-atul",
+      "name": "Workspaces",
+      "documentSecurity": false,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "imageUrl",
+          "type": "string",
+          "size": 1024,
+          "required": true
+        },
+        {
+          "key": "inviteCode",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "userId_idx",
+          "type": "key",
+          "attributes": ["userId"]
+        },
+        {
+          "key": "inviteCode_idx",
+          "type": "unique",
+          "attributes": ["inviteCode"]
+        }
+      ]
+    },
+    {
+      "$id": "tasks",
+      "databaseId": "timelydb-atul",
+      "name": "Tasks",
+      "documentSecurity": false,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true,
+          "array": false,
+          "elements": ["BACKLOG", "TODO", "IN_PROGRESS", "IN_REVIEW", "DONE"]
+        },
+        {
+          "key": "workspaceId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "assigneeId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "projectId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "position",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "dueDate",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 5000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "workspaceId_idx",
+          "type": "key",
+          "attributes": ["workspaceId"]
+        },
+        {
+          "key": "projectId_idx",
+          "type": "key",
+          "attributes": ["projectId"]
+        },
+        {
+          "key": "assigneeId_idx",
+          "type": "key",
+          "attributes": ["assigneeId"]
+        }
+      ]
+    },
+    {
+      "$id": "projects",
+      "databaseId": "timelydb-atul",
+      "name": "Projects",
+      "documentSecurity": false,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "imageUrl",
+          "type": "string",
+          "size": 1024,
+          "required": true
+        },
+        {
+          "key": "workspaceId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "workspaceId_idx",
+          "type": "key",
+          "attributes": ["workspaceId"]
+        }
+      ]
+    },
+    {
+      "$id": "members",
+      "databaseId": "timelydb-atul",
+      "name": "Members",
+      "documentSecurity": false,
+      "enabled": true,
+      "attributes": [
+        {
+          "key": "workspaceId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "role",
+          "type": "string",
+          "size": 16,
+          "required": true,
+          "array": false,
+          "elements": ["ADMIN", "MEMBER"]
+        }
+      ],
+      "indexes": [
+        {
+          "key": "workspaceId_userId_idx",
+          "type": "unique",
+          "attributes": ["workspaceId", "userId"]
+        },
+        {
+          "key": "workspaceId_idx",
+          "type": "key",
+          "attributes": ["workspaceId"]
+        }
+      ]
+    }
+  ],
+  "buckets": [
+    {
+      "$id": "681c8dc00008b5f145ab",
+      "$permissions": [
+        "create(\"any\")",
+        "read(\"any\")",
+        "update(\"any\")",
+        "delete(\"any\")",
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "fileSecurity": false,
+      "name": "timely",
+      "enabled": true,
+      "maximumFileSize": 50000000,
+      "allowedFileExtensions": [],
+      "compression": "none",
+      "encryption": true,
+      "antivirus": true
+    }
+  ]
+}

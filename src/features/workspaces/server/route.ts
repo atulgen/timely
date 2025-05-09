@@ -90,10 +90,15 @@ const app = new Hono()
     zValidator("form", createWorkspaceSchema),
     sessionMiddleware,
     async (c) => {
-      console.log("Here")
+      console.log(`######DEVELOPMENT######`, c);
       const databases = c.get("databases");
+      console.log(`######DEVELOPMENT######`, databases);
+
       const storage = c.get("storage");
+      console.log(`######DEVELOPMENT######`, storage);
+
       const user = c.get("user");
+      console.log(`######DEVELOPMENT######`, user);
 
       const { name, image } = c.req.valid("form");
 
@@ -125,6 +130,8 @@ const app = new Hono()
           inviteCode: getGenerateInviteCode(8),
         }
       );
+
+      console.log(`######DEVELOPMENT######`, workspace);
 
       await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
         userId: user.$id,

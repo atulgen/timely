@@ -90,6 +90,7 @@ const app = new Hono()
     zValidator("form", createWorkspaceSchema),
     sessionMiddleware,
     async (c) => {
+      console.log("Here")
       const databases = c.get("databases");
       const storage = c.get("storage");
       const user = c.get("user");

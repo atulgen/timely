@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { DotterSeperator } from "@/components/dotted-seperator";
@@ -170,7 +171,7 @@ export const SignUpCard = () => {
       <div className="px-7">
         <DotterSeperator />
       </div>
-      <CardContent className="p-7 flex flex-col gap-y-4">
+      {/* <CardContent className="p-7 flex flex-col gap-y-4">
         <Button
           onClick={() => signUpWithGoogle()}
           className="w-full bg-indigo-100"
@@ -191,7 +192,7 @@ export const SignUpCard = () => {
           <FaGithub className="mr-2 !size-6" />
           Login with Github
         </Button>
-      </CardContent>
+      </CardContent> */}
     </Card>
   );
 };

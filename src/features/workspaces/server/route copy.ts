@@ -98,7 +98,7 @@ const app = new Hono()
       console.log(`######DEVELOPMENT######`, storage);
 
       const user = c.get("user");
-      console.log(`######DEVELOPMENT######`, "user", user);
+      console.log(`######DEVELOPMENT######`,"user",  user);
 
       const { name, image } = c.req.valid("form");
 
@@ -119,12 +119,10 @@ const app = new Hono()
         ).toString("base64")}`;
       }
 
-      const workspaceId = ID.unique();
-
       const workspace = await databases.createDocument(
         DATABASE_ID,
         WORKSPACES_ID,
-        workspaceId,
+        ID.unique(),
         {
           name,
           userId: user.$id,

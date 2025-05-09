@@ -7,9 +7,13 @@ export const getWorkspaces = async () => {
     const { account, databases } = await createSessionClient();
     const user = await account.get();
 
+    console.log("####### Development ########", account, databases);
+
     const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
       Query.equal("userId", user.$id),
     ]);
+
+    console.log("####### Development ########", members);
 
     if (members.total === 0) {
       return { documents: [], total: 0 };
@@ -25,6 +29,9 @@ export const getWorkspaces = async () => {
 
     return workspaces;
   } catch {
+
+    
+
     return { documents: [], total: 0 };
   }
 };
